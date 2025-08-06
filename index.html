@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora de Tiempo para Oraciones</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
+    input, button, select { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
+    .result { margin-top: 20px; font-weight: bold; }
+    .affiliate { margin-top: 30px; background: #f9f9f9; padding: 15px; border-left: 5px solid #4CAF50; }
+    a.btn { background-color: #4CAF50; color: white; padding: 10px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Calculadora de Tiempo para Oraciones</h1>
+  <p>¿Cuánto tiempo deseas orar al día? Divide tu objetivo en bloques manejables.</p>
+  
+  <label for="totalTime">Tiempo total deseado (en minutos):</label>
+  <input type="number" id="totalTime" placeholder="Ej. 60" min="1" />
+
+  <label for="blocks">¿En cuántos bloques deseas dividirlo al día?</label>
+  <input type="number" id="blocks" placeholder="Ej. 3" min="1" />
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div class="result" id="resultado"></div>
+
+  <div class="affiliate">
+    <p>📖 ¿Quieres guiar mejor tus oraciones diarias con un libro?</p>
+    <a class="btn" href="https://amzn.to/4m3ilKi" target="_blank">Ver libros de oración recomendados</a>
+  </div>
+
+  <div class="affiliate">
+    <p>🎧 ¿Prefieres escuchar las oraciones en lugar de leerlas?</p>
+    <a class="btn" href="https://amzn.to/45CkdE1" target="_blank">Escuchar oraciones en Audible</a>
+  </div>
+
+  <script>
+    function calcular() {
+      const tiempo = parseInt(document.getElementById("totalTime").value);
+      const bloques = parseInt(document.getElementById("blocks").value);
+      const resultado = document.getElementById("resultado");
+
+      if (!tiempo || !bloques || bloques <= 0) {
+        resultado.textContent = "Por favor, ingresa valores válidos.";
+        return;
+      }
+
+      const minutosPorBloque = (tiempo / bloques).toFixed(2);
+      resultado.textContent = `Puedes orar ${minutosPorBloque} minutos en cada uno de los ${bloques} bloques.`;
+    }
+  </script>
+</body>
+</html>
