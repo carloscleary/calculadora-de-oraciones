@@ -1,55 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Calculadora de Tiempo para Oraciones</title>
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: auto; padding: 20px; }
-    input, button, select { padding: 8px; margin: 5px 0; width: 100%; box-sizing: border-box; }
-    .result { margin-top: 20px; font-weight: bold; }
-    .affiliate { margin-top: 30px; background: #f9f9f9; padding: 15px; border-left: 5px solid #4CAF50; }
-    a.btn { background-color: #4CAF50; color: white; padding: 10px; text-decoration: none; border-radius: 5px; display: inline-block; margin-top: 10px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Tiempo por Pasaje Bíblico</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 2em;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        h1 {
+            color: #004b87;
+        }
+        label, textarea, input {
+            display: block;
+            margin-top: 1em;
+            width: 100%;
+        }
+        textarea {
+            height: 100px;
+        }
+        button {
+            margin-top: 1em;
+            padding: 0.5em 1em;
+            background-color: #004b87;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #00345e;
+        }
+        .resultado {
+            margin-top: 1em;
+            padding: 1em;
+            background-color: #e2eaf3;
+            border-left: 4px solid #004b87;
+        }
+        .enlaces {
+            margin-top: 2em;
+        }
+    </style>
 </head>
 <body>
-  <h1>Calculadora de Tiempo para Oraciones</h1>
-  <p>¿Cuánto tiempo deseas orar al día? Divide tu objetivo en bloques manejables.</p>
-  
-  <label for="totalTime">Tiempo total deseado (en minutos):</label>
-  <input type="number" id="totalTime" placeholder="Ej. 60" min="1" />
+    <h1>⏳ Calculadora de Tiempo por Pasaje Bíblico</h1>
+    <p>Escribe el pasaje bíblico completo o copia la oración que deseas rezar.</p>
 
-  <label for="blocks">¿En cuántos bloques deseas dividirlo al día?</label>
-  <input type="number" id="blocks" placeholder="Ej. 3" min="1" />
+    <label for="oracion">Oración o Pasaje:</label>
+    <textarea id="oracion" placeholder="Ej: El Señor es mi pastor, nada me faltará..."></textarea>
 
-  <button onclick="calcular()">Calcular</button>
+    <label for="velocidad">Velocidad de lectura (palabras por minuto):</label>
+    <input type="number" id="velocidad" value="130" min="50" max="300">
 
-  <div class="result" id="resultado"></div>
+    <button onclick="calcularTiempo()">Calcular Tiempo</button>
 
-  <div class="affiliate">
-    <p>📖 ¿Quieres guiar mejor tus oraciones diarias con un libro?</p>
-    <a class="btn" href="https://amzn.to/4m3ilKi" target="_blank">Ver libros de oración recomendados</a>
-  </div>
+    <div class="resultado" id="resultado"></div>
 
-  <div class="affiliate">
-    <p>🎧 ¿Prefieres escuchar las oraciones en lugar de leerlas?</p>
-    <a class="btn" href="https://amzn.to/45CkdE1" target="_blank">Escuchar oraciones en Audible</a>
-  </div>
+    <div class="enlaces">
+        <h3>📚 Recursos recomendados</h3>
+        <ul>
+            <li><a href="https://amzn.to/4m3ilKi" target="_blank">Biblia Católica Recomendada (Amazon)</a></li>
+            <li><a href="https://amzn.to/45CkdE1" target="_blank">Escucha oraciones en Audible</a></li>
+        </ul>
+    </div>
 
-  <script>
-    function calcular() {
-      const tiempo = parseInt(document.getElementById("totalTime").value);
-      const bloques = parseInt(document.getElementById("blocks").value);
-      const resultado = document.getElementById("resultado");
+    <script>
+        function calcularTiempo() {
+            const texto = document.getElementById("oracion").value.trim();
+            const velocidad = parseInt(document.getElementById("velocidad").value);
+            const palabras = texto.split(/\s+/).length;
+            const minutos = palabras / velocidad;
+            const minutosEnteros = Math.floor(minutos);
+            const segundos = Math.round((minutos - minutosEnteros) * 60);
 
-      if (!tiempo || !bloques || bloques <= 0) {
-        resultado.textContent = "Por favor, ingresa valores válidos.";
-        return;
-      }
-
-      const minutosPorBloque = (tiempo / bloques).toFixed(2);
-      resultado.textContent = `Puedes orar ${minutosPorBloque} minutos en cada uno de los ${bloques} bloques.`;
-    }
-  </script>
+            const resultado = document.getElementById("resultado");
+            if (!texto) {
+                resultado.innerHTML = "⚠️ Por favor escribe una oración o pasaje bíblico.";
+                return;
+            }
+            resultado.innerHTML = `
+                🕊️ Tu oración tiene <strong>${palabras}</strong> palabras.<br>
+                🕰️ Tiempo estimado para orarla: <strong>${minutosEnteros} minutos y ${segundos} segundos</strong> a ${velocidad} palabras por minuto.`;
+        }
+    </script>
 </body>
 </html>
