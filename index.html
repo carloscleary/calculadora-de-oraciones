@@ -1,92 +1,150 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calculadora de Tiempo por Pasaje Bíblico</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de Tiempo para Oraciones</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #f5f5f5;
-      padding: 40px;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    input[type="number"] {
-      padding: 10px;
-      margin: 10px;
-      width: 200px;
-      font-size: 16px;
-    }
-    button {
-      padding: 12px 20px;
-      font-size: 16px;
-      margin-top: 20px;
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    button:hover {
-      background-color: #27ae60;
-    }
-    #resultado {
-      margin-top: 30px;
-      font-size: 18px;
-      color: #34495e;
-    }
-    .botones-afiliados {
-      margin-top: 40px;
-    }
-    .botones-afiliados a {
+    body { font-family: sans-serif; padding: 20px; max-width: 700px; margin: auto; }
+    select, input[type="number"] { width: 100%; padding: 8px; margin-bottom: 10px; }
+    .result { font-weight: bold; margin-top: 20px; }
+    .btn {
       display: inline-block;
-      margin: 10px;
-      padding: 12px 20px;
-      background-color: #2ecc71;
+      background-color: #4CAF50;
       color: white;
+      padding: 10px 20px;
+      margin-top: 10px;
       text-decoration: none;
       border-radius: 5px;
-      font-weight: bold;
-    }
-    .botones-afiliados a:hover {
-      background-color: #27ae60;
     }
   </style>
 </head>
 <body>
-  <h1>⏳ Calculadora de Tiempo por Pasaje Bíblico</h1>
-  <p>Ingresa la cantidad de palabras del pasaje u oración:</p>
-  <input type="number" id="palabras" placeholder="Ej: 250" />
-  <p>Velocidad estimada de lectura (palabras por minuto):</p>
-  <input type="number" id="velocidad" placeholder="Ej: 150" />
-  <br />
-  <button onclick="calcularTiempo()">Calcular Tiempo</button>
-  <div id="resultado"></div>
+  <h1>Calculadora de Tiempo para Oraciones</h1>
+  <p>Selecciona un pasaje bíblico para estimar cuánto tiempo te tomará orarlo.</p>
 
-  <div class="botones-afiliados">
-    <a href="https://amzn.to/4m3ilKi" target="_blank">📚 Ver Libros de Oración</a>
-    <a href="https://amzn.to/45CkdE1" target="_blank">🎧 Escuchar en Audible</a>
-  </div>
+  <label for="book">Libro de la Biblia:</label>
+  <select id="book" onchange="updateChapters()">
+    <option value="Génesis">Génesis</option>
+<option value="Éxodo">Éxodo</option>
+<option value="Levítico">Levítico</option>
+<option value="Números">Números</option>
+<option value="Deuteronomio">Deuteronomio</option>
+<option value="Josué">Josué</option>
+<option value="Jueces">Jueces</option>
+<option value="Rut">Rut</option>
+<option value="1 Samuel">1 Samuel</option>
+<option value="2 Samuel">2 Samuel</option>
+<option value="1 Reyes">1 Reyes</option>
+<option value="2 Reyes">2 Reyes</option>
+<option value="1 Crónicas">1 Crónicas</option>
+<option value="2 Crónicas">2 Crónicas</option>
+<option value="Esdras">Esdras</option>
+<option value="Nehemías">Nehemías</option>
+<option value="Tobías">Tobías</option>
+<option value="Judit">Judit</option>
+<option value="Ester">Ester</option>
+<option value="1 Macabeos">1 Macabeos</option>
+<option value="2 Macabeos">2 Macabeos</option>
+<option value="Job">Job</option>
+<option value="Salmos">Salmos</option>
+<option value="Proverbios">Proverbios</option>
+<option value="Eclesiastés">Eclesiastés</option>
+<option value="Cantar de los Cantares">Cantar de los Cantares</option>
+<option value="Sabiduría">Sabiduría</option>
+<option value="Eclesiástico">Eclesiástico</option>
+<option value="Isaías">Isaías</option>
+<option value="Jeremías">Jeremías</option>
+<option value="Lamentaciones">Lamentaciones</option>
+<option value="Baruc">Baruc</option>
+<option value="Ezequiel">Ezequiel</option>
+<option value="Daniel">Daniel</option>
+<option value="Oseas">Oseas</option>
+<option value="Joel">Joel</option>
+<option value="Amós">Amós</option>
+<option value="Abdías">Abdías</option>
+<option value="Jonás">Jonás</option>
+<option value="Miqueas">Miqueas</option>
+<option value="Nahúm">Nahúm</option>
+<option value="Habacuc">Habacuc</option>
+<option value="Sofonías">Sofonías</option>
+<option value="Ageo">Ageo</option>
+<option value="Zacarías">Zacarías</option>
+<option value="Malaquías">Malaquías</option>
+<option value="Mateo">Mateo</option>
+<option value="Marcos">Marcos</option>
+<option value="Lucas">Lucas</option>
+<option value="Juan">Juan</option>
+<option value="Hechos">Hechos</option>
+<option value="Romanos">Romanos</option>
+<option value="1 Corintios">1 Corintios</option>
+<option value="2 Corintios">2 Corintios</option>
+<option value="Gálatas">Gálatas</option>
+<option value="Efesios">Efesios</option>
+<option value="Filipenses">Filipenses</option>
+<option value="Colosenses">Colosenses</option>
+<option value="1 Tesalonicenses">1 Tesalonicenses</option>
+<option value="2 Tesalonicenses">2 Tesalonicenses</option>
+<option value="1 Timoteo">1 Timoteo</option>
+<option value="2 Timoteo">2 Timoteo</option>
+<option value="Tito">Tito</option>
+<option value="Filemón">Filemón</option>
+<option value="Hebreos">Hebreos</option>
+<option value="Santiago">Santiago</option>
+<option value="1 Pedro">1 Pedro</option>
+<option value="2 Pedro">2 Pedro</option>
+<option value="1 Juan">1 Juan</option>
+<option value="2 Juan">2 Juan</option>
+<option value="3 Juan">3 Juan</option>
+<option value="Judas">Judas</option>
+<option value="Apocalipsis">Apocalipsis</option>
+  </select>
+
+  <label for="chapter">Capítulo:</label>
+  <input type="number" id="chapter" min="1" value="1" onchange="calculateTime()">
+
+  <div class="result" id="result">Tiempo estimado: 0 minutos</div>
+
+  <a class="btn" href="https://amzn.to/4m3ilKi" target="_blank">📖 Ver Libros de Oración en Amazon</a>
+  <a class="btn" href="https://amzn.to/45CkdE1" target="_blank">🎧 Escuchar Oraciones en Audible</a>
 
   <script>
-    function calcularTiempo() {
-      const palabras = parseInt(document.getElementById("palabras").value);
-      const velocidad = parseInt(document.getElementById("velocidad").value);
-      const resultadoDiv = document.getElementById("resultado");
+    const bibleData = {
+      "Génesis": 50, "Éxodo": 40, "Levítico": 27, "Números": 36, "Deuteronomio": 34,
+      "Josué": 24, "Jueces": 21, "Rut": 4, "1 Samuel": 31, "2 Samuel": 24,
+      "1 Reyes": 22, "2 Reyes": 25, "1 Crónicas": 29, "2 Crónicas": 36, "Esdras": 10,
+      "Nehemías": 13, "Tobías": 14, "Judit": 16, "Ester": 10, "1 Macabeos": 16,
+      "2 Macabeos": 15, "Job": 42, "Salmos": 150, "Proverbios": 31, "Eclesiastés": 12,
+      "Cantar de los Cantares": 8, "Sabiduría": 19, "Eclesiástico": 51,
+      "Isaías": 66, "Jeremías": 52, "Lamentaciones": 5, "Baruc": 6, "Ezequiel": 48,
+      "Daniel": 14, "Oseas": 14, "Joel": 4, "Amós": 9, "Abdías": 1, "Jonás": 4,
+      "Miqueas": 7, "Nahúm": 3, "Habacuc": 3, "Sofonías": 3, "Ageo": 2, "Zacarías": 14,
+      "Malaquías": 4, "Mateo": 28, "Marcos": 16, "Lucas": 24, "Juan": 21,
+      "Hechos": 28, "Romanos": 16, "1 Corintios": 16, "2 Corintios": 13,
+      "Gálatas": 6, "Efesios": 6, "Filipenses": 4, "Colosenses": 4, "1 Tesalonicenses": 5,
+      "2 Tesalonicenses": 3, "1 Timoteo": 6, "2 Timoteo": 4, "Tito": 3, "Filemón": 1,
+      "Hebreos": 13, "Santiago": 5, "1 Pedro": 5, "2 Pedro": 3, "1 Juan": 5,
+      "2 Juan": 1, "3 Juan": 1, "Judas": 1, "Apocalipsis": 22
+    };
 
-      if (!palabras || !velocidad || palabras <= 0 || velocidad <= 0) {
-        resultadoDiv.innerHTML = "⚠️ Por favor, ingresa valores válidos.";
-        return;
-      }
-
-      const minutos = palabras / velocidad;
-      const tiempo = minutos.toFixed(2);
-
-      resultadoDiv.innerHTML = `🕊️ Tiempo estimado de oración: <strong>${tiempo} minutos</strong>`;
+    function updateChapters() {
+      const book = document.getElementById("book").value;
+      document.getElementById("chapter").max = bibleData[book];
+      document.getElementById("chapter").value = 1;
+      calculateTime();
     }
+
+    function calculateTime() {
+      const book = document.getElementById("book").value;
+      const chapter = parseInt(document.getElementById("chapter").value);
+      const avgVerses = 20;  // Suponiendo 20 versículos promedio por capítulo
+      const secondsPerVerse = 10;  // Suponiendo 10 segundos por versículo
+      const estimatedMinutes = Math.round((avgVerses * secondsPerVerse) / 60);
+      document.getElementById("result").innerText = "Tiempo estimado: " + estimatedMinutes + " minutos";
+    }
+
+    updateChapters();
   </script>
 </body>
 </html>
